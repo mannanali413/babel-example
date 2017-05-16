@@ -20,3 +20,13 @@ After cloning the repo, run
 
 square(double(2))
 ```
+
+- [x] Use `**` for exponentiation
+```javascript
+
+2 ** 3
+
+// will return
+
+Math.pow(2,3)
+```
