@@ -66,6 +66,25 @@ module.exports = function(babel){
 						[path.node.object, path.node.property]
 						)
 					)
+			},
+			  BinaryExpression: function(path){
+				if(path.node.operator !== "|") return;
+
+				function doublePiping(innerPath){
+                  console.log(innerPath);
+					var outerFunc = innerPath.node? innerPath.node.right : innerPath.right,
+						outerFuncArgs = innerPath.node? innerPath.node.left: innerPath.left;
+					if(t.isBinaryExpression(outerFuncArgs)){
+						return t.callExpression(outerFunc, [doublePiping(outerFuncArgs)]);
+					}
+					else{
+						return t.callExpression(outerFunc, [outerFuncArgs]);
+					}
+				}
+
+				path.replaceWith(
+						doublePiping(path)
+					)
 			}
 		}
 	}
