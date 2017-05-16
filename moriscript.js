@@ -67,7 +67,7 @@ module.exports = function(babel){
 						)
 					)
 			},
-			  BinaryExpression: function(path){
+			BinaryExpression: function(path){
 				if(path.node.operator !== "|") return;
 
 				function doublePiping(innerPath){
@@ -84,6 +84,19 @@ module.exports = function(babel){
 
 				path.replaceWith(
 						doublePiping(path)
+					)
+			},
+			BinaryExpression: function(path){
+				if(path.node.operator !== "**") return;
+
+				var leftArg = path.node.left,
+					rightArg = path.node.right;
+
+				
+				path.replaceWith(t.callExpression(
+						t.memberExpression(t.identifier('Math'), t.identifier('pow')),
+						[leftArg, rightArg]
+						)
 					)
 			}
 		}
