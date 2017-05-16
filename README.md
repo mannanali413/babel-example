@@ -12,7 +12,7 @@ After cloning the repo, run
 
 ## TODO's
 
--[x] Build a plugin which allows for the following operation
+- [x] Build a plugin which allows for the following operation
 ```javascript
 2 | double | square
 
